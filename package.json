@@ -4,8 +4,9 @@
   "description": "screeps",
   "main": "index.js",
   "scripts": {
-    "build": "webpack-cli --mode development",
-    "build1": "babel src --out-dir dist"
+    "clean": "rimraf dist",
+    "build": "npm run clean && babel src --out-dir dist",
+    "start": "npm run clean && babel src --out-dir dist -w"
   },
   "repository": {
     "type": "git",

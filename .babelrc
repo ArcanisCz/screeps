@@ -3,13 +3,13 @@
     ["env", {
       "targets": {
         "node": "8.9.3"
-      },
-      "modules": false,
-      "useBuiltIns": true
+      }
     }]
   ],
   "plugins": [
     "transform-object-rest-spread",
     "transform-runtime"
-  ]
+  ],
+  "comments": false,
+  "compact": false
 }
