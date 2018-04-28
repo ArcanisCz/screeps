@@ -1,17 +1,30 @@
+import {screep} from "./screep";
 
-const desiredCreeps = [
-    [[WORK, CARRY, MOVE], 'Basic harvester 1'],
-    [[WORK, CARRY, MOVE], 'Basic harvester 2'],
-    [[WORK, CARRY, MOVE], 'Basic harvester 3'],
-];
+const desiredCreeps = {
+    [screep.HARVESTER]: 3,
+};
 
 export const spawnCreeps = (spawner) => {
-    const toSpawn = desiredCreeps
-        .filter(creepNotExists)
-        .filter(canCreate(spawner));
+    if (spawner.spawning) {
+        spawner.room.visual.text(
+            '🛠️' + spawner.spawning.name,
+            spawner.pos.x + 1,
+            spawner.pos.y,
+            {align: 'left', opacity: 0.8});
+    } else {
+        const toSpawn = Object.keys(desiredCreeps)
+            .reduce((acc, role) => {
+                for(let i = 0; i < desiredCreeps[role]; i++){
+                    acc.push([screep.getBody(role), role+" "+i, {memory: {role}}])
+                }
+                return acc;
+            }, [])
+            .filter(creepNotExists)
+            .filter(canCreate(spawner));
 
-    if(toSpawn.length > 0){
-        spawner.spawnCreep(...toSpawn[0]);
+        if (toSpawn.length > 0) {
+            spawner.spawnCreep(...toSpawn[0]);
+        }
     }
 };
 

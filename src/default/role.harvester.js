@@ -1,6 +1,6 @@
-const visualizePath = {visualizePathStyle: {}};
-
-export const run = (creep) => {
+const NAME = "harvester";
+const getBody = () => [WORK, CARRY, MOVE];
+const run = (creep) => {
     if (creep.carry.energy < creep.carryCapacity) {
         const sources = creep.room.find(FIND_SOURCES_ACTIVE);
         const bestSource = getBestSource(sources, creep.pos);
@@ -22,6 +22,14 @@ export const run = (creep) => {
     }
 };
 
+export const harvester = {
+    NAME,
+    getBody,
+    run,
+};
+
+const visualizePath = {visualizePathStyle: {}};
+
 const needsEnergy = (structure) => (
     structure.structureType === STRUCTURE_EXTENSION ||
     structure.structureType === STRUCTURE_SPAWN ||
@@ -30,7 +38,7 @@ const needsEnergy = (structure) => (
 
 function getBestSource(sources, pos) {
     const a = sources.filter((source) => source.energy > 50);
-    const distances = a.map((source) => Math.sqrt((pos.x * source.pos.x) + (pos.y * source.pos.y)));
+    const distances = a.map((source) => Math.hypot((pos.x - source.pos.x) + (pos.y - source.pos.y)));
     let best = 0;
     a.forEach((source, index) => {
         if (distances[best] > distances[index]) {

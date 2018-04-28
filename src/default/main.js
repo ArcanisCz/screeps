@@ -1,11 +1,11 @@
 import {spawnCreeps} from "spawner";
-import {run} from "./role.harvester";
+import {screep} from "./screep";
 
 export const loop = () => {
     spawnCreeps(Game.spawns['Spawn1']);
 
     Object.keys(Game.creeps).forEach((name) => {
-        run(Game.creeps[name]);
+        screep.run(Game.creeps[name]);
     });
 
 
