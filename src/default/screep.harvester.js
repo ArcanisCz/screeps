@@ -3,17 +3,18 @@ const getBody = () => [WORK, CARRY, MOVE];
 const run = (creep) => {
     if (creep.carry.energy < creep.carryCapacity) {
         const sources = creep.room.find(FIND_SOURCES_ACTIVE);
-        const bestSource = getBestSource(sources, creep.pos);
-
-        if (creep.harvest(bestSource) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(bestSource, {...visualizePath});
+        if (sources.length > 0) {
+            const closest = getClosest(sources, creep.pos);
+            if (creep.harvest(closest) === ERR_NOT_IN_RANGE) {
+                creep.moveTo(closest, {...visualizePath});
+            }
         }
-    }
-    else {
+    } else {
         const targets = creep.room.find(FIND_STRUCTURES, {filter: needsEnergy});
         if (targets.length > 0) {
-            if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(targets[0], {...visualizePath});
+            const closest = getClosest(targets, creep.pos);
+            if (creep.transfer(closest, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+                creep.moveTo(closest, {...visualizePath});
             }
         } else {
             const spawn = creep.room.find(FIND_MY_SPAWNS);
@@ -36,15 +37,14 @@ const needsEnergy = (structure) => (
     structure.structureType === STRUCTURE_TOWER
 ) && structure.energy < structure.energyCapacity;
 
-function getBestSource(sources, pos) {
-    const a = sources.filter((source) => source.energy > 50);
-    const distances = a.map((source) => Math.hypot((source.pos.x - pos.x), (source.pos.y - pos.y)));
+function getClosest(objectsWithPos, pos) {
+    const distances = objectsWithPos.map((obj) => Math.hypot((obj.pos.x - pos.x), (obj.pos.y - pos.y)));
     let best = 0;
-    a.forEach((source, index) => {
+    objectsWithPos.forEach((source, index) => {
         if (distances[best] > distances[index]) {
             best = index;
         }
     });
 
-    return a[best];
+    return objectsWithPos[best];
 }
