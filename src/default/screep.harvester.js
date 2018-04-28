@@ -1,7 +1,7 @@
 import {getClosest, needsEnergy, visualizePath} from "./util";
 
 const NAME = "harvester";
-const getBody = () => [WORK, CARRY, MOVE];
+const getBody = () => [WORK, CARRY, MOVE, MOVE];
 const run = (creep) => {
     if(!creep.memory.source && creep.carry.energy === 0){
         const sources = creep.room.find(FIND_SOURCES_ACTIVE);
@@ -11,9 +11,9 @@ const run = (creep) => {
             creep.say('🔄 harvest');
         } else {
             creep.memory.source = null;
-            creep.say('! no sources');
+            creep.say('X sources');
         }
-    } else if(!creep.memory.target && creep.carry.energy === creep.carryCapacity){
+    }else if(!creep.memory.target && creep.carry.energy === creep.carryCapacity){
         const targets = creep.room.find(FIND_STRUCTURES, {filter: needsEnergy});
         if (targets.length > 0) {
             creep.memory.source = null;
@@ -21,8 +21,9 @@ const run = (creep) => {
             creep.say('🔄 deliver');
         } else {
             const spawns = creep.room.find(FIND_MY_SPAWNS);
-            creep.memory.target = getClosest(spawns, creep.pos);
-            creep.say('! no targets');
+            creep.memory.source = null;
+            creep.memory.target = getClosest(spawns, creep.pos).id;
+            creep.say('X targets');
         }
     }
 

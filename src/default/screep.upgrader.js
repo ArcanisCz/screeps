@@ -3,7 +3,7 @@ import {getClosest, visualizePath} from "./util";
 const NAME = "upgrader";
 const getBody = () => [WORK, CARRY, MOVE, MOVE];
 const run = (creep) => {
-    if (creep.carry.energy === 0) {
+    if (!creep.memory.source && creep.carry.energy === 0) {
         const sources = creep.room.find(FIND_SOURCES_ACTIVE);
         creep.memory.source = getClosest(sources, creep.room.controller.pos).id;
         creep.memory.upgrading = false;
