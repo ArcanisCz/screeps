@@ -38,7 +38,7 @@ const needsEnergy = (structure) => (
 
 function getBestSource(sources, pos) {
     const a = sources.filter((source) => source.energy > 50);
-    const distances = a.map((source) => Math.hypot((pos.x - source.pos.x) + (pos.y - source.pos.y)));
+    const distances = a.map((source) => Math.hypot((source.pos.x - pos.x), (source.pos.y - pos.y)));
     let best = 0;
     a.forEach((source, index) => {
         if (distances[best] > distances[index]) {

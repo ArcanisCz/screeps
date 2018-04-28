@@ -2,6 +2,7 @@ import {screep} from "./screep";
 
 const desiredCreeps = {
     [screep.HARVESTER]: 3,
+    [screep.UPGRADER]: 2,
 };
 
 export const spawnCreeps = (spawner) => {
