@@ -1,0 +1,30 @@
+{
+  "name": "screeps",
+  "version": "1.0.0",
+  "description": "screeps",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack-cli --mode production --env"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArcanisCz/screeps.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ArcanisCz/screeps/issues"
+  },
+  "homepage": "https://github.com/ArcanisCz/screeps#readme",
+  "devDependencies": {
+    "babel-core": "6.26.3",
+    "babel-loader": "7.1.4",
+    "babel-plugin-module-resolver": "3.1.1",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "babel-register": "6.26.0",
+    "webpack": "4.6.0",
+    "webpack-bundle-analyzer": "2.11.1",
+    "webpack-cli": "2.0.15"
+  }
+}
