@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && babel src --out-dir dist",
-    "start": "npm run clean && babel src --out-dir dist -w"
+    "start": "npm run clean && babel src --out-dir C:\\Users\\arcan\\AppData\\Local\\Screeps\\scripts\\127_0_0_1___21025 -w"
   },
   "repository": {
     "type": "git",
