@@ -1,7 +1,15 @@
-import {neco} from "./pokus";
+import {spawnCreeps} from "spawner";
+import {run} from "./role.harvester";
 
 export const loop = () => {
-    console.log(neco);
+    spawnCreeps(Game.spawns['Spawn1']);
+
+    Object.keys(Game.creeps).forEach((name) => {
+        run(Game.creeps[name]);
+    });
+
+
+    // console.log(neco);
     // const creep = getCreep();
     // if(creep.carry.energy < creep.carryCapacity){
     //     const sources = creep.room.find(FIND_SOURCES);
@@ -23,15 +31,4 @@ export const loop = () => {
 //     return Game.creeps["Harvester1"];
 // }
 //
-// function getBestSource(sources, pos) {
-//     const a = sources.filter((source) => source.energy > 50);
-//     const distances = a.map((source) => Math.sqrt((pos.x * source.pos.x) + (pos.y * source.pos.y)));
-//     let best = 0;
-//     a.forEach((source, index) => {
-//         if(distances[best] > distances[index]){
-//             best = index;
-//         }
-//     });
-//
-//     return a[best];
-// }
+

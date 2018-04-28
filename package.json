@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run babel:watch",
-    "babel:watch": "babel src --out-dir C:\\Users\\arcan\\AppData\\Local\\Screeps\\scripts\\127_0_0_1___21025 -w"
+    "build": "rimraf dist && npm run babel:dist",
+    "babel:watch": "babel src --out-dir C:\\Users\\arcan\\AppData\\Local\\Screeps\\scripts\\127_0_0_1___21025 -w",
+    "babel:dist": "babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,7 @@
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-plugin-transform-runtime": "6.23.0",
-    "babel-preset-env": "1.6.1"
+    "babel-preset-env": "1.6.1",
+    "rimraf": "2.6.2"
   }
 }
