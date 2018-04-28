@@ -1,50 +1,45 @@
+import {getClosest, needsEnergy, visualizePath} from "./util";
+
 const NAME = "harvester";
 const getBody = () => [WORK, CARRY, MOVE];
 const run = (creep) => {
-    if (creep.carry.energy < creep.carryCapacity) {
+    if(!creep.memory.source && creep.carry.energy === 0){
         const sources = creep.room.find(FIND_SOURCES_ACTIVE);
         if (sources.length > 0) {
-            const closest = getClosest(sources, creep.pos);
-            if (creep.harvest(closest) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(closest, {...visualizePath});
-            }
+            creep.memory.target = null;
+            creep.memory.source = getClosest(sources, creep.pos).id;
+            creep.say('🔄 harvest');
+        } else {
+            creep.memory.source = null;
+            creep.say('! no sources');
         }
-    } else {
+    } else if(!creep.memory.target && creep.carry.energy === creep.carryCapacity){
         const targets = creep.room.find(FIND_STRUCTURES, {filter: needsEnergy});
         if (targets.length > 0) {
-            const closest = getClosest(targets, creep.pos);
-            if (creep.transfer(closest, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(closest, {...visualizePath});
-            }
+            creep.memory.source = null;
+            creep.memory.target = getClosest(targets, creep.pos).id;
+            creep.say('🔄 deliver');
         } else {
-            const spawn = creep.room.find(FIND_MY_SPAWNS);
-            creep.moveTo(spawn[0], {...visualizePath});
+            const spawns = creep.room.find(FIND_MY_SPAWNS);
+            creep.memory.target = getClosest(spawns, creep.pos);
+            creep.say('! no targets');
+        }
+    }
+
+    if (creep.memory.source) {
+        const source = Game.getObjectById(creep.memory.source);
+        if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(source, {...visualizePath});
+        }
+    } else if (creep.memory.target) {
+        const target = Game.getObjectById(creep.memory.target);
+        if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(target, {...visualizePath});
         }
     }
 };
-
 export const harvester = {
     NAME,
     getBody,
     run,
 };
-
-const visualizePath = {visualizePathStyle: {}};
-
-const needsEnergy = (structure) => (
-    structure.structureType === STRUCTURE_EXTENSION ||
-    structure.structureType === STRUCTURE_SPAWN ||
-    structure.structureType === STRUCTURE_TOWER
-) && structure.energy < structure.energyCapacity;
-
-function getClosest(objectsWithPos, pos) {
-    const distances = objectsWithPos.map((obj) => Math.hypot((obj.pos.x - pos.x), (obj.pos.y - pos.y)));
-    let best = 0;
-    objectsWithPos.forEach((source, index) => {
-        if (distances[best] > distances[index]) {
-            best = index;
-        }
-    });
-
-    return objectsWithPos[best];
-}

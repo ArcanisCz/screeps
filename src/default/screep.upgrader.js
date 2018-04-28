@@ -1,13 +1,16 @@
-import {harvester} from "screep.harvester";
+import {getClosest, visualizePath} from "./util";
 
 const NAME = "upgrader";
 const getBody = () => [WORK, CARRY, MOVE, MOVE];
 const run = (creep) => {
-    if (creep.memory.upgrading && creep.carry.energy === 0) {
+    if (creep.carry.energy === 0) {
+        const sources = creep.room.find(FIND_SOURCES_ACTIVE);
+        creep.memory.source = getClosest(sources, creep.room.controller.pos).id;
         creep.memory.upgrading = false;
         creep.say('🔄 harvest');
     }
     if (!creep.memory.upgrading && creep.carry.energy === creep.carryCapacity) {
+        creep.memory.source = null;
         creep.memory.upgrading = true;
         creep.say('⚡ upgrade');
     }
@@ -17,7 +20,10 @@ const run = (creep) => {
             creep.moveTo(creep.room.controller, {...visualizePath});
         }
     } else {
-        harvester.run(creep);
+        const source = Game.getObjectById(creep.memory.source);
+        if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(source, {...visualizePath});
+        }
     }
 };
 
@@ -27,4 +33,3 @@ export const upgrader = {
     run,
 };
 
-const visualizePath = {visualizePathStyle: {}};
