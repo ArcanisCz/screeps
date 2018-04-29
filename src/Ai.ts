@@ -5,7 +5,8 @@ let memory = Memory.ai = {
 const operations = [];
 
 const init = () => {
-    console.log(Game.flags.test_moje);
+    // console.log(Game.flags.test_moje);
+    console.log("AAA");
     memory = Memory.ai;
 
 };

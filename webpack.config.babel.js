@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports.default = ({
     entry: {
-        main: "./src/main.js",
+        main: "./src/main.ts",
     },
     target: 'node',
     node: {
@@ -20,11 +20,14 @@ module.exports.default = ({
         pathinfo: true,
         libraryTarget: "commonjs2",
     },
+    resolve: {
+        extensions: ['.ts', '.d.ts']
+    },
     module: {
         rules: [{
-            test: /\.js$/,
+            test: /\.ts$/,
             include: path.resolve(__dirname, 'src'),
-            loader: 'babel-loader',
+            loader: 'ts-loader',
         }],
     },
 });
