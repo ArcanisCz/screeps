@@ -4,10 +4,9 @@
   "description": "screeps",
   "main": "index.js",
   "scripts": {
-    "start": "npm run babel:watch",
-    "build": "rimraf dist && npm run babel:dist",
-    "babel:watch": "babel src --out-dir C:\\Users\\arcan\\AppData\\Local\\Screeps\\scripts\\127_0_0_1___21025 -w",
-    "babel:dist": "babel src --out-dir dist"
+    "start": "npm run webpack -- --watch",
+    "build": "npm run webpack",
+    "webpack": "webpack-cli --mode none"
   },
   "repository": {
     "type": "git",
@@ -22,8 +21,12 @@
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
+    "babel-loader": "7.1.4",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-preset-env": "1.6.1",
-    "rimraf": "2.6.2"
+    "babel-register": "6.26.0",
+    "rimraf": "2.6.2",
+    "webpack": "4.6.0",
+    "webpack-cli": "2.0.15"
   }
 }

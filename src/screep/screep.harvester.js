@@ -1,4 +1,4 @@
-import {getClosest, needsEnergy, visualizePath} from "./util";
+import {getClosest, needsEnergy, visualizePath} from "../util";
 
 const NAME = "harvester";
 const getBody = () => [WORK, CARRY, MOVE, MOVE];

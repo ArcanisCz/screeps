@@ -1,4 +1,4 @@
-import {getClosest, visualizePath} from "./util";
+import {getClosest, visualizePath} from "../util";
 
 const NAME = "upgrader";
 const getBody = () => [WORK, CARRY, MOVE, MOVE];

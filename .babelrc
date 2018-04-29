@@ -3,7 +3,8 @@
     ["env", {
       "targets": {
         "node": "8.9.3"
-      }
+      },
+      "modules": false
     }]
   ],
   "plugins": [

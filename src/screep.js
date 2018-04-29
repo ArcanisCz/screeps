@@ -1,5 +1,5 @@
-import {harvester} from "./screep.harvester";
-import {upgrader} from "./screep.upgrader";
+import {harvester} from "./screep/screep.harvester";
+import {upgrader} from "./screep/screep.upgrader";
 
 const roleMap = {
     [harvester.NAME]: harvester,
