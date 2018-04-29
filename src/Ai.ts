@@ -1,21 +1,24 @@
-let memory = Memory.ai = {
-    count: 0,
-};
+import {Mission} from "./Mission";
+import {BasicHarvestMission} from "./missions/BasicHarvestMission";
 
-const operations = [];
+export class Ai {
+    private static operations: Mission[] = [];
 
-const init = () => {
-    // console.log(Game.flags.test_moje);
-    console.log("AAA");
-    memory = Memory.ai;
+    public static init() {
+        const missionName = "harvest";
+        if(!Memory.missions){
+            Memory.missions = {};
+        }
+        if(!Memory.missions[missionName]){
+            Memory.missions[missionName] = {};
+        }
+        this.operations = [new BasicHarvestMission(Memory.missions[missionName], missionName)];
+    }
 
-};
+    public static run() {
+        this.operations.forEach((operation) => {
+           operation.initCreeps();
+        });
+    }
+}
 
-const loop = () => {
-    memory.count++;
-};
-
-export const Ai = {
-  init,
-  loop,
-};

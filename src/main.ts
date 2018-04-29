@@ -4,7 +4,7 @@ import {Ai} from "./Ai";
 
 export const loop = () => {
     Ai.init();
-    Ai.loop();
+    Ai.run();
     // spawnCreeps(Game.spawns['Spawn1']);
     //
     // Object.keys(Game.creeps).forEach((name) => {
