@@ -1,8 +1,13 @@
-export class Spawner {
+export class MySpawn {
     private spawn: Spawn;
+
+    public room: Room;
+    public pos: RoomPosition;
 
     constructor(name) {
         this.spawn = Game.spawns[name];
+        this.room = this.spawn.room;
+        this.pos = this.spawn.pos;
     }
 
     public spawnCreep(body: string[], name: string): number {
@@ -15,5 +20,13 @@ export class Spawner {
         } else {
             return this.spawn.spawnCreep(body, name);
         }
+    }
+
+    getSpawn(): Spawn {
+        return this.spawn;
+    }
+
+    toString(): string {
+        return `[MySpawn ${this.spawn.name}]`;
     }
 }

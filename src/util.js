@@ -16,4 +16,4 @@ export const needsEnergy = (structure) => (
     structure.structureType === STRUCTURE_TOWER
 ) && structure.energy < structure.energyCapacity;
 
-export const visualizePath = {visualizePathStyle: {}};
+
