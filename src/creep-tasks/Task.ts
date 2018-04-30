@@ -151,7 +151,7 @@ export abstract class Task implements ITask {
 			targetRefs.push(parent._target.ref);
 			parent = parent._parent;
 		}
-		return _.map(targetRefs, ref => deref(ref));
+		return _.map(targetRefs, (ref: any) => deref(ref));
 	}
 
 	// Return a list of [this.target, this.parent.target, ...] without fully instantiating the list of tasks
@@ -162,7 +162,7 @@ export abstract class Task implements ITask {
 			targetPositions.push(parent._target._pos);
 			parent = parent._parent;
 		}
-		return _.map(targetPositions, protoPos => derefRoomPosition(protoPos));
+		return _.map(targetPositions, (protoPos: any) => derefRoomPosition(protoPos));
 	}
 
 	// Fork the task, assigning a new task to the creep with this task as its parent
@@ -220,6 +220,7 @@ export abstract class Task implements ITask {
 
 	// Execute this task each tick. Returns nothing unless work is done.
 	run(): number | void {
+		console.log("run");
 		if (this.creep.pos.inRangeTo(this.targetPos, this.settings.targetRange) && !this.creep.pos.isEdge) {
 			if (this.settings.workOffRoad) {
 				// Move to somewhere nearby that isn't on a road
@@ -233,7 +234,7 @@ export abstract class Task implements ITask {
 
 	/* Bundled form of Zerg.park(); adapted from BonzAI codebase*/
 	protected parkCreep(creep: Creep, pos: RoomPosition = creep.pos, maintainDistance = false): number {
-		let road = _.find(creep.pos.lookFor(LOOK_STRUCTURES), s => s.structureType == STRUCTURE_ROAD);
+		let road = _.find(creep.pos.lookFor(LOOK_STRUCTURES), (s: any) => s.structureType == STRUCTURE_ROAD);
 		if (!road) return OK;
 
 		let positions = _.sortBy(creep.pos.availableNeighbors(), (p: RoomPosition) => p.getRangeTo(pos));
@@ -244,7 +245,7 @@ export abstract class Task implements ITask {
 
 		let swampPosition;
 		for (let position of positions) {
-			if (_.find(position.lookFor(LOOK_STRUCTURES), s => s.structureType == STRUCTURE_ROAD)) continue;
+			if (_.find(position.lookFor(LOOK_STRUCTURES), (s: any) => s.structureType == STRUCTURE_ROAD)) continue;
 			let terrain = position.lookFor(LOOK_TERRAIN)[0];
 			if (terrain === 'swamp') {
 				swampPosition = position;

@@ -19,7 +19,7 @@ Object.defineProperty(Creep.prototype, 'task', {
 		if (oldProtoTask) {
 			let oldRef = oldProtoTask._target.ref;
 			if (Game.TargetCache.targets[oldRef]) {
-				Game.TargetCache.targets[oldRef] = _.remove(Game.TargetCache.targets[oldRef], name => name == this.name);
+				Game.TargetCache.targets[oldRef] = _.remove(Game.TargetCache.targets[oldRef], (name: any) => name == this.name);
 			}
 		}
 		// Set the new task
@@ -70,7 +70,7 @@ Object.defineProperty(RoomObject.prototype, 'targetedBy', {
 	get: function () {
 		// Check that target cache has been initialized - you can move this to execute once per tick if you want
 		TargetCache.assert();
-		return _.map(Game.TargetCache.targets[this.ref], name => Game.creeps[name]);
+		return _.map(Game.TargetCache.targets[this.ref], (name: any) => Game.creeps[name]);
 	},
 });
 
@@ -120,7 +120,7 @@ RoomPosition.prototype.isPassible = function (ignoreCreeps = false): boolean {
 };
 
 RoomPosition.prototype.availableNeighbors = function (ignoreCreeps = false): RoomPosition[] {
-	return _.filter(this.neighbors, pos => pos.isPassible(ignoreCreeps));
+	return _.filter(this.neighbors, (pos: any) => pos.isPassible(ignoreCreeps));
 };
 
 

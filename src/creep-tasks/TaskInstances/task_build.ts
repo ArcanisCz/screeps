@@ -2,6 +2,8 @@
 
 import {Task} from '../Task';
 
+console.log("SSSSSSS", Task);
+
 export type buildTargetType = ConstructionSite;
 
 export class TaskBuild extends Task {

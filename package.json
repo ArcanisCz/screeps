@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run webpack -- --watch",
     "build": "npm run webpack",
-    "webpack": "webpack-cli --mode none"
+    "webpack": "webpack-cli --mode development"
   },
   "repository": {
     "type": "git",
@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/ArcanisCz/screeps#readme",
   "devDependencies": {
-
     "babel-register": "6.26.0",
+    "circular-dependency-plugin": "5.0.2",
     "rimraf": "2.6.2",
     "ts-loader": "4.2.0",
     "typescript": "2.8.3",

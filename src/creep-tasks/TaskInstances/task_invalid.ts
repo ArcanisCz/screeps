@@ -4,7 +4,6 @@ import {Task} from '../Task';
 
 export class TaskInvalid extends Task {
 
-	static taskName = 'invalid';
 	target: any;
 
 	constructor(target: any, options = {} as TaskOptions) {

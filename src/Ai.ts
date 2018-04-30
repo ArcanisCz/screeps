@@ -18,9 +18,11 @@ export class Ai {
             this.spawn.spawnCreep([WORK, CARRY, MOVE],`creep_${missingCreeps[0]}`);
         }
         for(let creep of this.creeps){
+            console.log(creep.isIdle);
             if(creep.isIdle){
                 this.harvest(creep);
             }
+            creep.run();
         }
     }
 
@@ -30,9 +32,7 @@ export class Ai {
             let sources = creep.room.find(FIND_SOURCES);
 
             const sourcesByOccupied = _.sortBy(sources, ["targetedBy", "length"]);
-            console.log(sourcesByOccupied[0]);
             creep.task = new TaskHarvest(sourcesByOccupied[0], {});
-            console.log(creep.task);
         } else {
             // creep.task = Tasks.transfer(this.spawn);
         }

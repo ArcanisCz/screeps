@@ -14,10 +14,10 @@ export class TaskGetBoosted extends Task {
 
 	isValidTask() {
 		if (this.data.amount && this.target.mineralType) {
-			let boostCounts = _.countBy(this.creep.body, bodyPart => bodyPart.boost);
+			let boostCounts = _.countBy(this.creep.body, (bodyPart: any) => bodyPart.boost);
 			return boostCounts[this.target.mineralType] <= this.data.amount;
 		} else {
-			let boosts = _.compact(_.unique(_.map(this.creep.body,bodyPart => bodyPart.boost)));
+			let boosts = _.compact(_.unique(_.map(this.creep.body,(bodyPart: any) => bodyPart.boost)));
 			return !boosts.includes(this.target.mineralType);
 		}
 	}
