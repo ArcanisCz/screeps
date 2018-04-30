@@ -19,11 +19,16 @@
   },
   "homepage": "https://github.com/ArcanisCz/screeps#readme",
   "devDependencies": {
+
     "babel-register": "6.26.0",
     "rimraf": "2.6.2",
     "ts-loader": "4.2.0",
     "typescript": "2.8.3",
     "webpack": "4.6.0",
     "webpack-cli": "2.0.15"
+  },
+  "dependencies": {
+    "@types/lodash": "4.14.108",
+    "@types/screeps": "2.3.0"
   }
 }

@@ -25,7 +25,7 @@ module.exports.default = ({
     },
     module: {
         rules: [{
-            test: /\.ts$/,
+            test: [/\.ts$/, /\.js$/],
             include: path.resolve(__dirname, 'src'),
             loader: 'ts-loader',
         }],

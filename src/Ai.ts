@@ -1,28 +1,40 @@
-import {Mission} from "./Mission";
-import {BasicHarvestMission} from "./missions/BasicHarvestMission";
-import {MySpawn} from "./MySpawn";
-import {MySource} from "./MySource";
+// import {BasicHarvestMission} from "./missions/BasicHarvestMission";
+
+import {TaskHarvest} from './creep-tasks/TaskInstances/task_harvest';
+// import {TaskTransfer} from './creep-tasks/TaskInstances/task_transfer';
 
 export class Ai {
-    private static operations: Mission[] = [];
+    private static creeps: Creep[];
+    private static spawn: StructureSpawn;
 
     public static init() {
-        const spawn = new MySpawn("Spawn1");
-        const missions = spawn.room
-            .find(FIND_SOURCES_ACTIVE)
-            .map((source:Source) => new MySource(source))
-            .map((mySource) => new BasicHarvestMission(`harvest-${mySource.id.substr(0, 5)}`, mySource, spawn));
-
-        this.operations = missions;
+        this.creeps = _.values(Game.creeps);
+        this.spawn = Game.spawns["Spawn1"];
     }
 
     public static run() {
-        for(let operation of this.operations){
-            operation.initCreeps();
+        const missingCreeps = [0,1,2,3].filter((index) => !Game.creeps[`creep_${index}`]);
+        if(missingCreeps.length > 0){
+            this.spawn.spawnCreep([WORK, CARRY, MOVE],`creep_${missingCreeps[0]}`);
         }
+        for(let creep of this.creeps){
+            if(creep.isIdle){
+                this.harvest(creep);
+            }
+        }
+    }
 
-        for(let operation of this.operations){
-            operation.run();
+    private static harvest(creep: Creep): void {
+        if (creep.carry.energy < creep.carryCapacity) {
+            // Harvest from an empty source if there is one, else pick any source
+            let sources = creep.room.find(FIND_SOURCES);
+
+            const sourcesByOccupied = _.sortBy(sources, ["targetedBy", "length"]);
+            console.log(sourcesByOccupied[0]);
+            creep.task = new TaskHarvest(sourcesByOccupied[0], {});
+            console.log(creep.task);
+        } else {
+            // creep.task = Tasks.transfer(this.spawn);
         }
     }
 }
