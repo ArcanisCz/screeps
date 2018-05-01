@@ -12,7 +12,7 @@
  * If you use Traveler, change all occurrences of creep.moveTo() to creep.travelTo()
  */
 
-import {initializeTask} from './utilities/initializer';
+// import {initializeTask} from './utilities/initializer';
 import {deref, derefRoomPosition} from './utilities/helpers';
 
 type targetType = { ref: string, pos: RoomPosition }; // overwrite this variable in derived classes to specify more precise typing
@@ -120,7 +120,7 @@ export abstract class Task implements ITask {
 
 	// Getter/setter for task parent
 	get parent(): Task | null {
-		return (this._parent ? initializeTask(this._parent) : null);
+		return (this._parent ? global.initializeTask(this._parent) : null);
 	}
 
 	set parent(parentTask: Task | null) {
@@ -220,7 +220,6 @@ export abstract class Task implements ITask {
 
 	// Execute this task each tick. Returns nothing unless work is done.
 	run(): number | void {
-		console.log("run");
 		if (this.creep.pos.inRangeTo(this.targetPos, this.settings.targetRange) && !this.creep.pos.isEdge) {
 			if (this.settings.workOffRoad) {
 				// Move to somewhere nearby that isn't on a road

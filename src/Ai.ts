@@ -1,6 +1,6 @@
 // import {BasicHarvestMission} from "./missions/BasicHarvestMission";
 
-import {TaskHarvest} from './creep-tasks/TaskInstances/task_harvest';
+import {Tasks} from './creep-tasks/Tasks';
 // import {TaskTransfer} from './creep-tasks/TaskInstances/task_transfer';
 
 export class Ai {
@@ -18,7 +18,6 @@ export class Ai {
             this.spawn.spawnCreep([WORK, CARRY, MOVE],`creep_${missingCreeps[0]}`);
         }
         for(let creep of this.creeps){
-            console.log(creep.isIdle);
             if(creep.isIdle){
                 this.harvest(creep);
             }
@@ -32,9 +31,9 @@ export class Ai {
             let sources = creep.room.find(FIND_SOURCES);
 
             const sourcesByOccupied = _.sortBy(sources, ["targetedBy", "length"]);
-            creep.task = new TaskHarvest(sourcesByOccupied[0], {});
+            creep.task = Tasks.harvest(sourcesByOccupied[0]);
         } else {
-            // creep.task = Tasks.transfer(this.spawn);
+            creep.task = Tasks.transfer(this.spawn);
         }
     }
 }
