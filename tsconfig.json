@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "es6",
     "target": "es6",
     "lib": [
       "dom",
@@ -15,6 +15,10 @@
     "allowUnreachableCode": false,
     "removeComments": false,
   },
+  "types": [
+    "lodash",
+    "screeps"
+  ],
   "exclude": [
     "node_modules"
   ]

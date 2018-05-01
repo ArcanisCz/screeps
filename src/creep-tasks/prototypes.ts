@@ -69,7 +69,6 @@ Object.defineProperty(RoomObject.prototype, 'ref', {
 Object.defineProperty(RoomObject.prototype, 'targetedBy', {
 	get: function () {
 		// Check that target cache has been initialized - you can move this to execute once per tick if you want
-		TargetCache.assert();
 		return _.map(Game.TargetCache.targets[this.ref], (name: any) => Game.creeps[name]);
 	},
 });
