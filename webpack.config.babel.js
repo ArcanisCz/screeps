@@ -1,5 +1,4 @@
 const path = require('path');
-const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 module.exports.default = ({
     entry: {
@@ -19,25 +18,14 @@ module.exports.default = ({
         path: "C:\\Users\\arcan\\AppData\\Local\\Screeps\\scripts\\127_0_0_1___21025\\default",
         filename: "./main.js",
         pathinfo: true,
-        libraryTarget: "commonjs2",
+        libraryTarget: "commonjs",
     },
-    plugins: [
-        new CircularDependencyPlugin({
-            // exclude detection of files based on a RegExp
-            exclude: /node_modules/,
-            // add errors to webpack instead of warnings
-            failOnError: true,
-            // allow import cycles that include an asyncronous import,
-            // e.g. via import(/* webpackMode: "weak" */ './file.js')
-            allowAsyncCycles: false,
-        })
-    ],
     resolve: {
-        extensions: ['.ts', '.d.ts']
+        extensions: ['.ts']
     },
     module: {
         rules: [{
-            test: [/\.ts$/, /\.js$/],
+            test: [/\.ts$/],
             include: path.resolve(__dirname, 'src'),
             loader: 'ts-loader',
         }],
