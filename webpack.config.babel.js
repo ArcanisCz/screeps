@@ -18,7 +18,7 @@ module.exports.default = ({
         path: "C:\\Users\\arcan\\AppData\\Local\\Screeps\\scripts\\127_0_0_1___21025\\default",
         filename: "./main.js",
         pathinfo: true,
-        libraryTarget: "commonjs",
+        libraryTarget: "commonjs2",
     },
     resolve: {
         extensions: ['.ts']
