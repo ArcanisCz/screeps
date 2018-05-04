@@ -11,6 +11,7 @@ export class TaskRepair extends Task {
 		super(TaskRepair.taskName, target, options);
 		// Settings
 		this.settings.targetRange = 3;
+		this.settings.workOffRoad = true;
 	}
 
 	isValidTask() {
