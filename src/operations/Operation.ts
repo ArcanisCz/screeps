@@ -1,4 +1,4 @@
-export type lifecycle = "started" | "running" | "terminated";
+export type lifecycle = "started" | "running" | "terminating" | "terminated";
 
 export interface memory<T> {
     data: T;
@@ -37,7 +37,12 @@ export abstract class Operation<T> {
         if (this.memory.state === "started") {
             this.init();
         }
-        if(this.memory.state !== "terminated"){
+        if (this.memory.state === "terminating") {
+            const canTerminate = this.onTerminating();
+            if (canTerminate) {
+                this.memory.state = "terminated";
+            }
+        } else if (this.memory.state !== "terminated") {
             this.onRun();
         }
     };
@@ -51,13 +56,17 @@ export abstract class Operation<T> {
         return this.memory.state;
     }
 
-    get name(){
+    get name() {
         return this.memory.name;
     }
 
     protected abstract onInit(): void;
 
     protected abstract onRun(): void;
+
+    protected onTerminating(): boolean {
+        return true;
+    }
 
     protected abstract onTerminate(): void;
 

@@ -3,11 +3,13 @@ import {TargetCache} from "./creep-tasks/utilities/caching";
 import {BasicOperation} from "./operations/BasicOperation";
 import {OperationFactory} from "./operations/OperationFactory";
 import {Operation} from "./operations/Operation";
+import {MiningOperation} from "./operations/MiningOperation";
 
 export class Ai {
     // private static spawn: StructureSpawn;
     // private static requestedCreeps: [BodyPartConstant[], string][];
     private static operations: Operation<any>[];
+
 
     public static initMemory() {
         if (!Memory.ai) {
@@ -29,7 +31,7 @@ export class Ai {
         TargetCache.assert();
     }
 
-    private static initOperations(){
+    private static initOperations() {
         this.operations = _.values(Memory.operations).map(OperationFactory.createOperation);
     }
 
@@ -81,8 +83,14 @@ export class Ai {
 
 
     public static run() {
-        if(this.operations.length === 0){
-            this.operations.push(new BasicOperation("neco"));
+        if (this.operations.length === 0) {
+            // this.operations.push(new BasicOperation("neco"));
+            const miningOps = Game.spawns["Spawn1"].room.find(FIND_SOURCES)
+                .map((source, index) => new MiningOperation("mining" + index, {
+                    sourceId: source.id,
+                    minersCount: 0,
+                }));
+            this.operations.push(...miningOps);
         }
         for (let operation of this.operations) {
             if (operation.state === "terminated") {
